@@ -5,6 +5,7 @@ import { AuthModule } from '../auth/auth.module';
 import { JwtService } from '@nestjs/jwt';
 import { AuthService } from '../auth/auth.service';
 import { UsersService } from './users.service';
+import { PrismaService } from '../orm/prisma/prisma.service';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -14,6 +15,7 @@ describe('UsersController', () => {
       controllers: [UsersController],
       providers: [
         JwtService,
+        PrismaService,
         {
           provide: AuthService,
           useValue: {
@@ -34,7 +36,7 @@ describe('UsersController', () => {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRvdG8iLCJzdWIiOjEsImlhdCI6MTcyNDE3MTQxNCwiZXhwIjoxNzI0MTg1ODE0fQ.cWJBx7aZBW8L-Ol9pPtLJBFOPMa360UgGu1WH-n6flI',
     };
 
-    const loginDto = { username: 'testuser', password: 'testpassword' };
+    const loginDto = { email: 'testuser', password: 'testpassword' };
 
     jest.spyOn(authService, 'login').mockResolvedValue(result);
 

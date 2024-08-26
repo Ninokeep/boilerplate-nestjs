@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '../utils/interfaces/user';
-
+import { PrismaService } from '../orm/prisma/prisma.service';
+import { User as UserModelPrisma, Prisma } from '@prisma/client';
 @Injectable()
 export class UsersService {
   //replace by username of DB
@@ -18,7 +19,19 @@ export class UsersService {
     },
   ];
 
-  async findOne(username: string): Promise<User | undefined> {
-    return this.users.find((user) => user.username === username);
+  constructor(private prismaService: PrismaService) {}
+
+  async findOne(email: string): Promise<UserModelPrisma | undefined> {
+    return await this.user({
+      email,
+    });
+  }
+
+  private async user(
+    userWhereUniqueInput: Prisma.UserWhereUniqueInput,
+  ): Promise<UserModelPrisma | undefined> {
+    return this.prismaService.user.findUnique({
+      where: userWhereUniqueInput,
+    });
   }
 }
