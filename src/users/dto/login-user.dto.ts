@@ -6,10 +6,10 @@ export class LoginUserDTO {
   @IsNotEmpty()
   email: string;
 
-  @Transform(({ value }) => {
-    return value.trim();
-  })
   @IsString()
+  @Transform(({ value }) => {
+    return typeof value === 'string' ? value.trim() : value;
+  })
   @IsNotEmpty()
   password: string;
 }

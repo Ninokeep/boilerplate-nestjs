@@ -61,4 +61,54 @@ describe('UserLoginDTO', () => {
     expect(errors.length).toBe(1);
     expect(errors[0].constraints).toHaveProperty('isNotEmpty');
   });
+
+  it('should fail because the password is null ', async () => {
+    const user = {
+      email: 'toto@gmail.com',
+      password: null,
+    };
+    const loginUserDto = plainToInstance(LoginUserDTO, user);
+    const errors = await validate(loginUserDto);
+    expect(errors.length).toBe(1);
+
+    expect(errors[0].constraints).toHaveProperty('isNotEmpty');
+    expect(errors[0].constraints).toHaveProperty('isString');
+  });
+
+  it('should fail because the password is undefined ', async () => {
+    const user = {
+      email: 'toto@gmail.com',
+      password: undefined,
+    };
+    const loginUserDto = plainToInstance(LoginUserDTO, user);
+    const errors = await validate(loginUserDto);
+    expect(errors.length).toBe(1);
+
+    expect(errors[0].constraints).toHaveProperty('isNotEmpty');
+    expect(errors[0].constraints).toHaveProperty('isString');
+  });
+
+  it('should fail because the password is number ', async () => {
+    const user = {
+      email: 'toto@gmail.com',
+      password: 123,
+    };
+    const loginUserDto = plainToInstance(LoginUserDTO, user);
+    const errors = await validate(loginUserDto);
+    expect(errors.length).toBe(1);
+
+    expect(errors[0].constraints).toHaveProperty('isString');
+  });
+
+  it('should fail because the email is null ', async () => {
+    const user = {
+      email: null,
+      password: 'azeazeaeaeae',
+    };
+    const loginUserDto = plainToInstance(LoginUserDTO, user);
+    const errors = await validate(loginUserDto);
+    expect(errors.length).toBe(1);
+
+    expect(errors[0].constraints).toHaveProperty('isEmail');
+  });
 });
