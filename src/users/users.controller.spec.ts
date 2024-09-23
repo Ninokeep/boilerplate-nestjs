@@ -1,7 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
-import { forwardRef, HttpException, HttpStatus } from '@nestjs/common';
-import { AuthModule } from '../auth/auth.module';
 import { JwtService } from '@nestjs/jwt';
 import { AuthService } from '../auth/auth.service';
 import { UsersService } from './users.service';

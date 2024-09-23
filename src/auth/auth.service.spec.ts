@@ -11,7 +11,6 @@ describe('AuthService', () => {
       providers: [
         AuthService,
         JwtService,
-
         {
           provide: UsersService,
           useValue: {
