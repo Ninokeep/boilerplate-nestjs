@@ -5,4 +5,5 @@ export interface User {
   email: string;
   createAt: number;
   updateAt: number | null;
+  status: Date | null;
 }

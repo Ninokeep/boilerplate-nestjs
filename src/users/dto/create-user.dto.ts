@@ -15,4 +15,6 @@ export class CreateUserDTO {
   @IsNotEmpty()
   @Transform(({ value }) => value.trim())
   name: string;
+
+  status: Date | null = null;
 }
